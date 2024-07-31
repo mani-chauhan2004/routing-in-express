@@ -42,6 +42,19 @@ const readAllBlogs = async (req, res) => {
     const blogs = blogDb.collection(BLOGS_COL);
 
     const cursor = blogs.find({});
+
+    let docs = [];
+    // cursor traversal
+
+    for await (const doc of cursor) {
+      docs.push(doc);
+    }
+
+    // same done manually
+    while (await cursor.hasNext()) {
+      docs.push(await cursor.next());
+    }
+
     const result = await cursor.toArray();
 
     res.status(200).json(result).send();
