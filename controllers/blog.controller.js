@@ -37,9 +37,39 @@ const blogDetails = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+const blogEditGet = (req, res) => {
+  const { id } = req.params;
+
+  Blog.findById(id)
+    .then((blog) => res.render("blog/edit", { blog }))
+    .catch((err) => console.error(err));
+};
+const blogEditPut = (req, res) => {
+  const { id } = req.params;
+
+  const { body, title } = req.body;
+
+  if (body && title) {
+    Blog.findByIdAndUpdate(id, { body, title })
+      .then((_) => res.redirect(`/blog/${id}`))
+      .catch((err) => console.error(err));
+  }
+};
+
+const blogDelete = (req, res) => {
+  const { id } = req.params;
+
+  Blog.findByIdAndDelete(id)
+    .then((_) => res.redirect(`/blog`))
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   blogIndex,
   blogCreateGet,
   blogCreatePost,
   blogDetails,
+  blogEditGet,
+  blogEditPut,
+  blogDelete,
 };
