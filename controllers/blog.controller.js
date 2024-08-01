@@ -11,6 +11,11 @@ const blogIndex = (req, res) => {
     });
 };
 
+const blogCreateGet = (req, res) => {
+  res.render("blog/new");
+};
+
 module.exports = {
   blogIndex,
+  blogCreateGet,
 };
