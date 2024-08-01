@@ -29,8 +29,17 @@ const blogCreatePost = async (req, res) => {
   }
 };
 
+const blogDetails = (req, res) => {
+  const { id } = req.params;
+  // const id = req.params.id;
+  Blog.findById(id)
+    .then((blog) => res.render("blog/detail", { blog }))
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   blogIndex,
   blogCreateGet,
   blogCreatePost,
+  blogDetails,
 };
